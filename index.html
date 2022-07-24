@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kawai musicplayer</title>
+     <link rel="shortcut icon" type="png" href="GIFs/logo1.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" integrity="sha512-KulI0psuJQK8UMpOeiMLDXJtGOZEBm8RZNTyBBHIWqoXoPMFcw+L5AEo0YMpsW8BfiuWrdD1rH6GWGgQBF59Lg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id="title">ROCK WITH SOMEBODY</h2>
+            <h3 id="artist">NATALIE LA ROSE, JAREMIE</h3>
+            <div class="gif_container">
+                <img src="GIFs/1.gif" alt="" />
+            </div>
+            <audio src="music/1.mp3"></audio>
+         <!-- controls -->
+          <div class="music_controls">
+            <i class="fas  fa-backward" id="prev" title="Previous"></i> 
+            <i class="fas  fa-play main_button" id="play" title="Play"></i> 
+            <i class="fas  fa-forward" id="next" title="Next"></i> 
+          </div>
+        </div>
+    </div> 
+    <script>
+        const music = document.querySelector("audio");
+        const img = document.querySelector("img");
+        const play = document.getElementById("play");
+        const artist = document.getElementById("artist");
+        const title = document.getElementById("title");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+
+        const songs = [
+            {
+                name: "1",
+                title:"ROCK WITH SOMEBODY",
+                artist:"NATALIE LA ROSE, JAREIME",
+            },
+            {
+                name: "2",
+                title:"BIG DIPPER",
+                artist:"THE CATARACS",
+            },
+            {
+                name: "3",
+                title:"DEVIL TRIGER",
+                artist:"ELIE EDWARD",
+            },
+            {
+                name: "4",
+                title:"TOP OF THE WORLD",
+                artist:"THE CATARACS FT. DEV",
+            },
+            {
+                name: "5",
+                title:"WTF U MEAN",
+                artist:"HAARPER",
+            },
+            {
+                name: "6",
+                title:"CALL ME SUNSHINE",
+                artist:"THR GHOST",
+            },
+            {
+                name: "7",
+                title:"MAKE YOU MINE",
+                artist:"THE PUBLIC",
+            },
+            {
+                name: "8",
+                title:"SEX TRIP",
+                artist:"JAY PARK",
+            },
+            {
+                name: "9",
+                title:"PAY MY RENT",
+                artist:"DNCE",
+            },
+            {
+                name: "10",
+                title:"WAKE UP TO REALITY",
+                artist:"MADARA UCHIHA",
+            }
+           
+        ];
+        
+        let isPlaying = false;
+        // for play function
+        const playMusic= () => {
+            isPlaying = true;
+           music.play();
+           play.classList.replace("fa-play","fa-pause");
+        };
+            // for pause function
+           const pauseMusic= () => {
+             isPlaying = false;
+           music.pause();
+           play.classList.replace("fa-pause","fa-play");
+        };
+
+        play.addEventListener('click', () => {
+            isPlaying ? pauseMusic() : playMusic();
+        });
+        // changing the music data
+        const loadSongs =(Songs) =>{
+            title.textContent =Songs.title;
+            artist.textContent =Songs.artist;
+            music.src = "music/" + Songs.name +".mp3";
+            img.src = "GIFs/"+ Songs.name + ".gif";
+        };
+        SongIndex=0
+        const nextSong = () => {
+            SongIndex=(SongIndex + 1) % songs.length;
+           loadSongs(songs[SongIndex]);
+           playMusic();
+        };
+        const prevSong = () => {
+            SongIndex=(SongIndex-1 + songs.length) % songs.length;
+           loadSongs(songs[SongIndex]);
+           playMusic();
+        };
+        next.addEventListener('click', nextSong);
+        prev.addEventListener('click', prevSong);
+    </script>
+</body>
+</html>
